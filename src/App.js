@@ -9,7 +9,7 @@ import HomePage from './CRUD/HomePage';
 function App() {
   return (
     <Container maxWidth='sm' sx={{padding: '50px'}}> 
-      <Box sx={{ padding: '10px', bgcolor: 'white', height: '80vh', border: '2px solid #BB1414'}}>
+      <Box sx={{ padding: '10px', bgcolor: 'white', height: '100%', border: '2px solid #BB1414'}}>
             <Router>
               <Routes>
                 <Route exact path="/" Component={HomePage}/>

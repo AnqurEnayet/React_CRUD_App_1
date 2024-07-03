@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Remove from './Remove'
 import Update from './Update'
 import { Link, Typography, CssBaseline, Container, Box, Button, TextField } from '@mui/material';
-import { List, ListItem, ListItemText, ListItemSecondaryAction, IconButton } from '@mui/material';
+import { List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, Checkbox } from '@mui/material';
 
 
 const Controller = () => {
@@ -100,6 +100,7 @@ const Controller = () => {
       >
         <div>
           <form onSubmit={handleSubmit}>
+          <Box sx={{ display: 'flex', gap: '10px' }}>
             <TextField
               type='text'
               value={inputText}
@@ -111,22 +112,22 @@ const Controller = () => {
                   backgroundColor: 'white',
                 },
                 '& .MuiFormLabel-root': {
-                  color: '#BB1414',
+                  color: '#4E0456',
                 },
                 '& .MuiFilledInput-underline:before': {
-                  borderBottomColor: '#BB1414',
+                  borderBottomColor: '#4E0456',
                 },
                 '& .MuiFilledInput-underline:after': {
-                  borderBottomColor: '#BB1414',
+                  borderBottomColor: '#4E0456',
                 },
                 '& .MuiFilledInput-root.Mui-focused': {
                   backgroundColor: 'white',
                   '& .MuiFilledInput-underline:after': {
-                    borderBottomColor: '#BB1414',
+                    borderBottomColor: '#4E0456',
                   },
                 },
                 '& .MuiFormLabel-root.Mui-focused': {
-                  color: '#BB1414',
+                  color: '#4E0456',
                 },
               }}
             />
@@ -147,81 +148,94 @@ const Controller = () => {
             >
               Add
             </Button>
+            </Box>
           </form>
         </div>
       </Box>
       <div>
-        <ul>
+        <List>
           {items.map((item, index) => (
-            <li
-              key={index}
-            >
+            <ListItem key={index}>
               {editIndex === index ? (
-                <div>
-                  <form onSubmit={() => handleSave(index, inputValue)}>
-                    <TextField
-                      type='text'
-                      value={inputValue}
-                      onChange={handleUpdateInput}
-                      variant='filled'
-                      label='Update Details'
-                      sx={{
-                        '& .MuiFilledInput-root': {
-                          backgroundColor: 'white',
-                        },
-                        '& .MuiFormLabel-root': {
-                          color: '#BB1414',
-                        },
-                        '& .MuiFilledInput-underline:before': {
-                          borderBottomColor: '#BB1414',
-                        },
+                <form onSubmit={() => handleSave(index, inputValue)} style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                  <TextField
+                    type="text"
+                    value={inputValue}
+                    onChange={handleUpdateInput}
+                    variant="filled"
+                    label="Update Details"
+                    sx={{
+                      '& .MuiFilledInput-root': {
+                        backgroundColor: 'white',
+                      },
+                      '& .MuiInputLabel-root': {
+                        color: '#BB1414',
+                      },
+                      '& .MuiFilledInput-underline:before': {
+                        borderBottomColor: '#BB1414',
+                      },
+                      '& .MuiFilledInput-underline:after': {
+                        borderBottomColor: '#BB1414',
+                      },
+                      '& .MuiFilledInput-root.Mui-focused': {
+                        backgroundColor: 'white',
                         '& .MuiFilledInput-underline:after': {
                           borderBottomColor: '#BB1414',
                         },
-                        '& .MuiFilledInput-root.Mui-focused': {
-                          backgroundColor: 'white',
-                          '& .MuiFilledInput-underline:after': {
-                            borderBottomColor: '#BB1414',
-                          },
-                        },
-                        '& .MuiFormLabel-root.Mui-focused': {
-                          color: '#BB1414',
-                        },
-                      }}
-
-                    />
-                    <Button
-                      type="submit"
-                      variant='outlined'
-                      sx={{
+                      },
+                      '& .MuiInputLabel-root.Mui-focused': {
+                        color: '#BB1414',
+                      },
+                    }}
+                  />
+                  <Button
+                    type="submit"
+                    variant="outlined"
+                    sx={{
+                      borderColor: '#A30606',
+                      fontFamily: 'Times New Roman',
+                      color: '#A30606',
+                      marginLeft: '10px',
+                      '&:hover': {
+                        backgroundColor: '#A30606',
                         borderColor: '#A30606',
-                        fontFamily: 'Times New Roman',
-                        color: '#A30606',
-                        marginLeft: '10px',
-                        '&:hover': {
-                          backgroundColor: '#A30606',
-                          borderColor: '#A30606',
-                          color: 'white'
-                        }
-                      }}
-                    >
-                      Save
-                    </Button>
-                  </form>
-
-                </div>
+                        color: 'white',
+                      },
+                    }}
+                  >
+                    Save
+                  </Button>
+                </form>
               ) : (
-                <div>
-                  {item}
-                  <Remove onDelete={() => handleDelete(index)} />
-                  <Update onUpdate={() => handleUpdate(index, item)} />
-                </div>
-
+                <>
+                  <Checkbox
+                    edge="start"
+                  // Add any other checkbox properties you need
+                  />
+                  <ListItemText
+                    primary={
+                      <Typography
+                        sx={{
+                          color: '#4E0456',
+                          fontFamily: 'Times New Roman',
+                          fontSize: '20px', // Adjust the font size as needed
+                        }}
+                      >
+                        {item}
+                      </Typography>
+                    }
+                  />
+                  <ListItemSecondaryAction>
+                    <Box sx={{ display: 'flex', gap: '10px' }}>
+                      <Update onUpdate={() => handleUpdate(index, item)} />
+                      <Remove onDelete={() => handleDelete(index)} />
+                    </Box>
+                  </ListItemSecondaryAction>
+                </>
               )}
-            </li>
-
+            </ListItem>
           ))}
-        </ul>
+        </List>
       </div>
     </div>
   )
